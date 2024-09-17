@@ -15,7 +15,7 @@ For background on this project see [Building files-to-prompt entirely using Clau
 ## Installation
 
 ```powershell
-Install-Module Build-PromptFromFiles
+Install-Module BuildPromptFromFiles
 ```
 
 ## Usage
