@@ -32,7 +32,7 @@ This will output the contents of every file in the specified directories, combin
 
 Suppose you have a directory structure like this:
 
-```
+```plaintext
 my_directory/
 ├── file1.txt
 ├── file2.txt
@@ -43,7 +43,7 @@ my_directory/
 
 Running `Build-PromptFromFiles my_directory -RAW` will output:
 
-```
+```plaintext
 my_directory/file1.txt
 ---
 Contents of file1.txt
@@ -64,7 +64,7 @@ Contents of file3.txt
 
 If you run `Build-PromptFromFiles my_directory -RAW --ignore "*.log"`, the output will exclude `temp.log`:` the output will be:
 
-```
+```plaintext
 my_directory/file1.txt
 ---
 Contents of file1.txt
