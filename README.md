@@ -1,4 +1,12 @@
 # Build-PromptFromFiles
+[![Follow on Twitter](https://img.shields.io/twitter/follow/dfinke.svg?style=social&label=Follow%20%40dfinke)](https://twitter.com/dfinke)
+[![Subscribe on YouTube](https://img.shields.io/youtube/channel/subscribers/UCP47ZkO5EDkoI2sr-3P4ShQ
+)](https://youtube.com/@dougfinke/)
+
+[![](https://img.shields.io/powershellgallery/v/BuildPromptFromFiles.svg)](https://www.powershellgallery.com/packages/BuildPromptFromFiles)
+[![](https://img.shields.io/powershellgallery/dt/BuildPromptFromFiles.svg)](https://www.powershellgallery.com/packages/BuildPromptFromFiles)
+[![Changelog](https://img.shields.io/github/v/release/dfinke/Build-PromptFromFiles?include_prereleases&label=changelog)](https://github.com/dfinke/Build-PromptFromFiles/releases)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/dfinke/Build-PromptFromFiles/blob/master/LICENSE)
 
 Combine files from a directory into a single prompt, ready for use with large language models (LLMs)
 
