@@ -3,7 +3,7 @@
     RootModule        = 'BuildPromptFromFiles.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.1.0'
+    ModuleVersion     = '0.2.0'
 
     # ID used to uniquely identify this module
     GUID              = 'fa761a01-55b9-436d-8928-9dfd0ffdf978'
