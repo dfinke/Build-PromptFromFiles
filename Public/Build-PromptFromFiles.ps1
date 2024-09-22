@@ -1,56 +1,57 @@
 <#
 .SYNOPSIS
-Builds a prompt from the contents of files in specified directories.
+Builds a prompt from files in specified directories.
 
 .DESCRIPTION
-The Build-PromptFromFiles function recursively scans specified directories for files, excluding certain file types, and builds a prompt from the contents of these files. The output can be in raw text format or wrapped in XML tags.
+The Build-PromptFromFiles function scans specified directories and builds a prompt from the files found. 
+It can optionally ignore certain file types and include content from .gitignore files. 
+The output can be in raw format or XML format.
 
 .PARAMETER Path
-An array of directory paths to scan for files. Defaults to the current directory.
+An array of directory paths to scan. Defaults to the current directory.
 
 .PARAMETER ignore
-An array of file patterns to exclude from the scan. Additional patterns are added by default.
+An array of file patterns to ignore. Additional patterns are added by default.
 
-.PARAMETER NoCDATA
-(Not used in the current implementation.)
+.PARAMETER gitIgnore
+A switch to include patterns from .gitignore files in the ignore list.
 
 .PARAMETER Raw
-If specified, the output will be in raw text format. Otherwise, the output will be wrapped in XML tags.
+A switch to output the content in raw format instead of XML format.
 
 .EXAMPLE
-Build-PromptFromFiles -Path "C:\MyFolder" -Raw
+Build-PromptFromFiles -Path "C:\Projects" -gitIgnore -Raw
 
-This example scans the "C:\MyFolder" directory for files, excluding certain file types, and outputs the contents in raw text format.
+This example scans the "C:\Projects" directory, includes patterns from .gitignore files, and outputs the content in raw format.
 
 .EXAMPLE
-Build-PromptFromFiles -Path "C:\MyFolder"
+Build-PromptFromFiles -Path "C:\Projects", "D:\Work" -ignore "*.log"
 
-This example scans the "C:\MyFolder" directory for files, excluding certain file types, and outputs the contents wrapped in XML tags.
-
-.NOTES
-The function excludes certain file types by default, such as PDFs, ZIPs, executables, images, and media files.
+This example scans the "C:\Projects" and "D:\Work" directories, ignores .log files, and outputs the content in XML format.
 #>
 function Build-PromptFromFiles {
     [CmdletBinding()]
     param (
         [string[]]$Path = $pwd,
         [string[]]$ignore,
-        [Switch]$NoCDATA,
+        [Switch]$gitIgnore,
         [Switch]$Raw
     )
-
-    $ignore += "*.pdf"
-    $ignore += "*.zip"
-    $ignore += "*.exe"
-    $ignore += "*.dll"
-    $ignore += "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff", "*.ico", "*.mp3", "*.mp4", "*.avi"
 
     $targetFiles = foreach ($targetPath in $Path) {
         if (-not (Test-Path -Path $targetPath -PathType Container)) {
             Write-Error "Path $targetPath does not exist or is not a directory."
             return
         }
-         (Get-ChildItem -Path $targetPath -Recurse -File -Exclude $ignore).FullName | Sort-Object 
+
+        $ignore += "*.pdf", "*.zip", "*.exe", "*.dll", ".gitignore"
+        $ignore += "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff", "*.ico", "*.mp3", "*.mp4", "*.avi"
+
+        if ($gitIgnore) {
+            $ignore += (Get-GitIgnoreContent -Path $targetPath)
+        }
+
+        (Get-ChildItem -Path $targetPath -Recurse -File -Exclude $ignore).FullName | Sort-Object 
     }
 
     $outputText = [System.Text.StringBuilder]::new()
