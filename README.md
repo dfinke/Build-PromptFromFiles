@@ -36,6 +36,16 @@ This will output the contents of every file in the specified directories, combin
     Build-PromptFromFiles path/to/file_or_directory -ignore *.txt, *.dll
     ```
 
+### Usage - Build Prompt From GitHub Repo
+
+Use the `Build-PromptFromGitHubRepo` command to download a GitHub repository and build a prompt from its contents.
+
+```powershell
+Build-PromptFromGitHubRepo dfinke/psai | clip
+```
+
+`clip` is optional and will copy the prompt to the clipboard. You can then paste it into your favorite LLM. Your token limit may be exceeded if the prompt is too large.
+
 ### Example
 
 Suppose you have a directory structure like this:
