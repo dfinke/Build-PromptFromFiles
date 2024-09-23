@@ -1,4 +1,6 @@
-@{
+@{    
+    CompatiblePSEditions = @('Desktop')
+
     # Script module or binary module file associated with this manifest.
     RootModule        = 'BuildPromptFromFiles.psm1'
 
@@ -73,7 +75,7 @@ Combine files from a directory into a single prompt, ready for use with large la
     }
 
     # Minimum version of the Windows PowerShell engine required by this module
-    # PowerShellVersion = ''
+    PowerShellVersion = '7.0'
 
     # Name of the Windows PowerShell host required by this module
     # PowerShellHostName = ''
