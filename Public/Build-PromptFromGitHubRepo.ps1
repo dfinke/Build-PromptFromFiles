@@ -3,16 +3,7 @@ function Build-PromptFromGitHubRepo {
     param(
         $slug
     )
-
-    # [System.Environment]::OSVersion.Platform -eq "Unix"
-    # check if unix or macos
-
     
-
-    if ($null -eq (Get-Module -list BuildPromptFromFiles -errorAction SilentlyContinue)) {
-        throw "BuildPromptFromFiles module is required. Please install - Install-Module BuildPromptFromFiles"
-    }
-
     if (!(Test-RepoExists -slug $slug)) {
         throw "Repo $slug does not exist"
     }
@@ -26,23 +17,19 @@ function Build-PromptFromGitHubRepo {
     Write-Verbose "[$(Get-Date)] Retrieving $url"
 
     $fileName = $slug.replace("/", "-")
-    $OutFile = "$PSScriptRoot\$($fileName).zip"
+    $folderName = [System.IO.Path]::GetTempPath()
+    $OutFile = "$folderName\$($fileName).zip"
     
-    $DestinationPath = "$PSScriptRoot\$fileName"
+    $DestinationPath = "$folderName\$fileName"
 
     Invoke-RestMethod $url -OutFile $OutFile
-    
     Expand-Archive -Path $OutFile -DestinationPath $DestinationPath -Force
+    $targetFullName = (Get-ChildItem $folderName -Recurse $fileName -Directory | Get-ChildItem).FullName
 
-    $targetFullName = (Get-ChildItem $PSScriptRoot -Recurse $fileName -Directory | Get-ChildItem).FullName
-
+    Write-Verbose "[$(Get-Date)] $OutFile"
+    Write-Verbose "[$(Get-Date)] $DestinationPath"
     Build-PromptFromFiles $targetFullName
+
+    $null = Remove-Item $OutFile -Force -Verbose:$Verbose
+    $null = Remove-Item $DestinationPath -Recurse -Force -Verbose:$Verbose
 }
-
-# yyz dfinke/importexcel 
-# yyz dfinke/psai | clip
-# yyz dfinke/InstallModuleFromGitHub
-# yyz PowerShell/ProjectMercury | clip
-# yyz PowerShell/PowerShell
-
-# Build-PromptFromGitHubRepo dfinke/psai
