@@ -1,9 +1,11 @@
-@{
+@{    
+    CompatiblePSEditions = @('Desktop')
+
     # Script module or binary module file associated with this manifest.
     RootModule        = 'BuildPromptFromFiles.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.2.0'
+    ModuleVersion     = '0.2.1'
 
     # ID used to uniquely identify this module
     GUID              = 'fa761a01-55b9-436d-8928-9dfd0ffdf978'
@@ -25,7 +27,10 @@ Combine files from a directory into a single prompt, ready for use with large la
     # Functions to export from this module
     FunctionsToExport = @(        
         'Build-PromptFromFiles'
+        'Build-PromptFromGitHubRepo'
+        'Get-GHBranch'
         'Get-GitIgnoreContent'
+        'Test-RepoExists'
     )
 
     # Aliases to export from this module
@@ -70,7 +75,7 @@ Combine files from a directory into a single prompt, ready for use with large la
     }
 
     # Minimum version of the Windows PowerShell engine required by this module
-    # PowerShellVersion = ''
+    PowerShellVersion = '7.0'
 
     # Name of the Windows PowerShell host required by this module
     # PowerShellHostName = ''
