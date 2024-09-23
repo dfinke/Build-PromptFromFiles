@@ -30,6 +30,6 @@ function Build-PromptFromGitHubRepo {
     Write-Verbose "[$(Get-Date)] $DestinationPath"
     Build-PromptFromFiles $targetFullName
 
-    $null = Remove-Item $OutFile -Force -Verbose:$Verbose
-    $null = Remove-Item $DestinationPath -Recurse -Force -Verbose:$Verbose
+    $null = Remove-Item $OutFile -Force 
+    $null = Remove-Item $DestinationPath -Recurse -Force
 }
