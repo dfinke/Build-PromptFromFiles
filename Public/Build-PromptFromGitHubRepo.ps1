@@ -9,9 +9,7 @@ function Build-PromptFromGitHubRepo {
     }
 
     $branch = Get-GHBranch -slug $slug
-
-    # test if github repo exists
-
+    
     $url = "https://api.github.com/repos/{0}/zipball/{1}" -f $slug, $branch
 
     Write-Verbose "[$(Get-Date)] Retrieving $url"
