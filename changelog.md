@@ -1,3 +1,7 @@
+# v0.2.1
+
+
+
 # v0.2.0
 
 - Added `gitIgnore` switch to include patterns from .gitignore files in the ignore list.
