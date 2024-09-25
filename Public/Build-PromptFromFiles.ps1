@@ -10,6 +10,9 @@ The output can be in raw format or XML format.
 .PARAMETER Path
 An array of directory paths to scan. Defaults to the current directory.
 
+.PARAMETER ignoreFolders
+An array of folder patterns to ignore.
+
 .PARAMETER ignore
 An array of file patterns to ignore. Additional patterns are added by default.
 
@@ -28,6 +31,9 @@ This example scans the "C:\Projects" directory, includes patterns from .gitignor
 Build-PromptFromFiles -Path "C:\Projects", "D:\Work" -ignore "*.log"
 
 This example scans the "C:\Projects" and "D:\Work" directories, ignores .log files, and outputs the content in XML format.
+
+.EXAMPLE
+Build-PromptFromFiles -Path "C:\Projects" -ignoreFolders "bin", "obj"
 #>
 function Build-PromptFromFiles {
     [CmdletBinding()]
