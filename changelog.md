@@ -1,3 +1,7 @@
+# v0.2.2
+
+- Thank you to @Agazoth for add the `-ignoreFolders` 👍🏼
+
 # v0.2.1
 
 - Added `Build-PromptFromGitHubRepo`
