@@ -10,6 +10,9 @@ The output can be in raw format or XML format.
 .PARAMETER Path
 An array of directory paths to scan. Defaults to the current directory.
 
+.PARAMETER ignoreFolders
+An array of folder patterns to ignore.
+
 .PARAMETER ignore
 An array of file patterns to ignore. Additional patterns are added by default.
 
@@ -28,12 +31,16 @@ This example scans the "C:\Projects" directory, includes patterns from .gitignor
 Build-PromptFromFiles -Path "C:\Projects", "D:\Work" -ignore "*.log"
 
 This example scans the "C:\Projects" and "D:\Work" directories, ignores .log files, and outputs the content in XML format.
+
+.EXAMPLE
+Build-PromptFromFiles -Path "C:\Projects" -ignoreFolders "bin", "obj"
 #>
 function Build-PromptFromFiles {
     [CmdletBinding()]
     param (
         [string[]]$Path = $pwd,
         [string[]]$ignore,
+        [string[]]$ignoreFolders,
         [Switch]$gitIgnore,
         [Switch]$Raw
     )
@@ -51,7 +58,9 @@ function Build-PromptFromFiles {
             $ignore += (Get-GitIgnoreContent -Path $targetPath)
         }
 
-        (Get-ChildItem -Path $targetPath -Recurse -File -Exclude $ignore).FullName | Sort-Object 
+        $filteredTargetPath = Get-ChildItem -Path $targetPath -Exclude $ignoreFolders
+
+        (Get-ChildItem -Path $filteredTargetPath -Recurse -File -Exclude $ignore).FullName | Sort-Object 
     }
 
     $outputText = [System.Text.StringBuilder]::new()
