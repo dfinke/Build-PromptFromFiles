@@ -34,6 +34,7 @@ function Build-PromptFromFiles {
     param (
         [string[]]$Path = $pwd,
         [string[]]$ignore,
+        [string[]]$ignoreFolders,
         [Switch]$gitIgnore,
         [Switch]$Raw
     )
@@ -51,7 +52,9 @@ function Build-PromptFromFiles {
             $ignore += (Get-GitIgnoreContent -Path $targetPath)
         }
 
-        (Get-ChildItem -Path $targetPath -Recurse -File -Exclude $ignore).FullName | Sort-Object 
+        $filteredTargetPath = Get-ChildItem -Path $targetPath -Exclude $ignoreFolders
+
+        (Get-ChildItem -Path $filteredTargetPath -Recurse -File -Exclude $ignore).FullName | Sort-Object 
     }
 
     $outputText = [System.Text.StringBuilder]::new()
